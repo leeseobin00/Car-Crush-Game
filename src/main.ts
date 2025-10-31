@@ -9,16 +9,15 @@ const ctx = canvas.getContext('2d')!;
 const fit = ()=>{ 
   canvas.width = Math.max(320, window.innerWidth); 
   canvas.height = window.innerHeight; 
-  // notify game about new dimensions so ground/entities shift accordingly
-  if(typeof (game as any)?.onResize === 'function'){
-    game.onResize(canvas.width, canvas.height);
-  }
 };
-fit(); window.addEventListener('resize', fit);
+fit();
 
 const ui = new UI();
 const audio = new AudioSystem();
 const game = new Game(canvas, ctx, ui, audio);
+// ensure entities adapt to initial canvas size and future resizes
+game.onResize(canvas.width, canvas.height);
+window.addEventListener('resize', ()=>{ fit(); game.onResize(canvas.width, canvas.height); });
 
 let state: 'MENU'|'PLAYING'|'GAME_OVER' = 'MENU';
 let last=performance.now();
@@ -30,13 +29,22 @@ const newRecordEl = document.getElementById('newRecord')!;
 
 function setState(s:typeof state){ state=s; menu.classList.toggle('visible', s==='MENU'); over.classList.toggle('visible', s==='GAME_OVER'); }
 
-function startPlay(){ audio.resume(); game.start(); setState('PLAYING'); }
-window.addEventListener('DOMContentLoaded', ()=>{
+function startPlay(){
+  try{ audio.resume(); }catch(_e){ /* ignore audio resume errors */ }
+  game.start();
+  setState('PLAYING');
+}
+function bindMenuButtons(){
   const playBtn = document.getElementById('playBtn') as HTMLButtonElement | null;
   const replayBtn = document.getElementById('replayBtn') as HTMLButtonElement | null;
   if(playBtn){ playBtn.addEventListener('click', (e)=>{ e.preventDefault(); startPlay(); }); }
   if(replayBtn){ replayBtn.addEventListener('click', (e)=>{ e.preventDefault(); startPlay(); }); }
-});
+}
+if(document.readyState === 'loading'){
+  window.addEventListener('DOMContentLoaded', bindMenuButtons);
+} else {
+  bindMenuButtons();
+}
 
 // Input
 let revHeld=false;
