@@ -1,0 +1,29 @@
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#1a1a1a;color:#fff;font-family:'Bangers',cursive;letter-spacing:1px}
+#game{display:block;width:100vw;height:100vh;position:fixed;left:0;top:0}
+#hud{position:fixed;top:10px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 16px;pointer-events:none}
+#hud .hud-item{background:rgba(0,0,0,0.35);padding:6px 12px;border:2px solid #ffb84d;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.5)}
+#timer{font-size:28px}
+#score{font-size:28px}
+#air{font-size:20px;opacity:.9}
+#bottom-ui{position:fixed;bottom:10px;left:0;right:0;display:flex;justify-content:center;pointer-events:none}
+.speedo{position:relative;}
+#speedo{filter:drop-shadow(0 0 6px rgba(0,0,0,.8))}
+#speedText{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-size:24px;}
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);opacity:0;pointer-events:none;transition:.2s opacity}
+.screen{z-index:10}
+.screen.visible{opacity:1;pointer-events:auto}
+#menu h1{font-size:72px;margin:0 0 16px;text-shadow:0 4px 0 #000,0 0 12px #ff6}
+#menu button,#gameover button{font-family:'Bangers',cursive;font-size:28px;padding:10px 18px;border:3px solid #ffb84d;background:#ff6;color:#000;border-radius:10px;cursor:pointer}
+#menu .hint{margin-top:10px;opacity:.85}
+#gameover h2{font-size:48px;margin:0 0 8px}
+#gameover h3{font-size:36px;color:#ff6;margin:0 0 16px}
+.hidden{display:none}
+
+@keyframes crush-spin{0%{transform:scale(1) rotate(0)}50%{transform:scale(0.6) rotate(10deg)}100%{transform:scale(0.3) rotate(25deg)}}
+@keyframes dust-puff{0%{opacity:1;transform:scale(0.6)}80%{opacity:.4}100%{opacity:0;transform:scale(1.6)}}
+
+@media (max-width: 420px){
+  #menu h1{font-size:48px}
+  #timer,#score{font-size:22px}
+}

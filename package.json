@@ -1,0 +1,18 @@
+{
+  "name": "monster-truck-crunch-time",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A loud, chaotic, score-chasing monster truck canvas game.",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.3"
+  }
+}

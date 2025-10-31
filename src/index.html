@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monster Truck Crunch Time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="menu" class="screen visible">
+    <h1>CRUSH TIME!</h1>
+    <button id="playBtn">Play</button>
+    <p class="hint">Tap right to jump • Tap left to rev • Space to jump • Hold Shift to rev</p>
+  </div>
+  <canvas id="game"></canvas>
+  <div id="hud">
+    <div class="hud-item"><span id="timer">01:00</span></div>
+    <div class="hud-item"><span id="score">0</span></div>
+    <div class="hud-item"><span id="air">AIR 0ms</span></div>
+  </div>
+  <div id="bottom-ui">
+    <div class="speedo">
+      <canvas id="speedo" width="220" height="110"></canvas>
+      <span id="speedText">0</span>
+    </div>
+  </div>
+  <div id="gameover" class="screen">
+    <h2 id="finalScore">Score: 0</h2>
+    <h3 id="newRecord" class="hidden">NEW RECORD!</h3>
+    <button id="replayBtn">Replay</button>
+  </div>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
