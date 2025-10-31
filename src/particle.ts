@@ -31,8 +31,12 @@ export class Particle{
 
 export class ParticleSystem{
   items: Particle[] = [];
+  maxParticles = 500;
   spawn(x:number,y:number,type:ParticleType,count:number){
-    for(let i=0;i<count;i++) this.items.push(new Particle(x+(Math.random()-0.5)*8,y+(Math.random()-0.5)*8,type));
+    const available = Math.max(0, this.maxParticles - this.items.length);
+    if(available<=0) return;
+    const toAdd = Math.min(count, available);
+    for(let i=0;i<toAdd;i++) this.items.push(new Particle(x+(Math.random()-0.5)*8,y+(Math.random()-0.5)*8,type));
   }
   updateAndDraw(ctx:CanvasRenderingContext2D){
     for(let i=this.items.length-1;i>=0;i--){

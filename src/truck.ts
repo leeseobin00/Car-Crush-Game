@@ -23,6 +23,18 @@ export class Truck{
       this.angle *= 0.7;
     }else{ this.onGround=false; this.airFrames++; }
 
+    // on-ground stabilization: nudge angle back toward level and limit spin
+    if(this.onGround){
+      const target = 0;
+      const k = 0.12; // stabilization strength
+      this.angularV += (target - this.angle)*k*dt;
+      // damp spin more aggressively on ground
+      this.angularV *= 0.92;
+      // clamp to safe ranges on ground
+      this.angularV = clamp(this.angularV, -0.12, 0.12);
+      this.angle = clamp(this.angle, -0.35, 0.35);
+    }
+
     // trail
     if(!this.onGround && Math.random()<0.4) this.particles.spawn(this.x-40, this.y+this.h*0.8, 'trail', 1);
 
@@ -49,7 +61,7 @@ export class Truck{
     wheel(-this.w*0.25, this.h*0.3); wheel(this.w*0.25, this.h*0.3);
     ctx.restore();
   }
-  jump(){ if(this.onGround){ this.vy = -18; this.onGround=false; this.angularV += 0.03; }}
+  jump(){ if(this.onGround){ this.vy = -18; this.onGround=false; this.angularV += 0.02; }}
   rev(){ this.revBoost = Math.min(this.revBoost + 0.4, 4); }
-  crushCar(){ this.angularV += 0.02; }
+  crushCar(){ this.angularV += 0.015; }
 }
